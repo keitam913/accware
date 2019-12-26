@@ -1,13 +1,24 @@
 import React from 'react';
 import './App.css';
 import Monthly from './Monthly';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <div className="container">
-        <h1 className="app-title">Accware</h1>
-        {Monthly()}
+      <div className="App-container">
+        <h1 className="App-title">Accware</h1>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/:year/:month">
+              <Monthly />
+            </Route>
+          </Switch>
+        </BrowserRouter>
       </div>
     </div>
   );

@@ -1,32 +1,59 @@
 import React from 'react';
 import './Monthly.css';
+import { withRouter } from 'react-router-dom';
 
-function Monthly() {
-    return <div class="Monthly">
-        <h2 class="Monthly-title">2019年12月</h2>
-        <table class="Monthly-settlements">
-            <tr class="Monthly-settlement">
-                <td class="Monthly-settlement-title">商品0</td>
-                <td class="Monthly-settlement-amount">1,000</td>
-                <td class="Monthly-settlement-amount"></td>
-            </tr>
-            <tr class="Monthly-settlement">
-                <td class="Monthly-settlement-title">商品1</td>
-                <td class="Monthly-settlement-amount"></td>
-                <td class="Monthly-settlement-amount">2,000</td>
-            </tr>
-            <tr class="Monthly-settlement Monthly-adjustment">
-                <td class="Monthly-settlement-title">月末調整</td>
-                <td class="Monthly-settlement-amount">1,000</td>
-                <td class="Monthly-settlement-amount">-1,000</td>
-            </tr>
-            <tr class="Monthly-total">
-                <td class="Monthly-settlement-title">合計</td>
-                <td class="Monthly-settlement-amount">2,000</td>
-                <td class="Monthly-settlement-amount">1,000</td>
-            </tr>
-        </table>
-    </div>;
+class Monthly extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            settlements: [],
+            total: { amounts: [0, 0] },
+        }
+    }
+
+    componentDidMount() {
+        let { match } = this.props;
+        this.year = match.params.year;
+        this.month = match.params.month;
+        this.setState({
+            settlements: [
+                { title: '商品0', amounts: [1000, 0] },
+                { title: '商品1', amounts: [0, 2000] },
+                { title: '月末調整', amounts: [1000, -1000] },
+            ],
+        })
+        this.setState({
+            total: { amounts: [2000, 1000] },
+        });
+    }
+
+    number(n) {
+        if (n === 0) {
+            return "";
+        } else {
+            return n.toString();
+        }
+    }
+
+    render() {
+        return <div className="Monthly">
+            <h2 className="Monthly-title">{this.year}年{this.month}月</h2>
+            <table className="Monthly-settlements">
+                {this.state.settlements.map(s =>
+                    <tr className="Monthly-settlement">
+                        <td className="Monthly-settlement-title">{s.title}</td>
+                        <td className="Monthly-settlement-amount">{this.number(s.amounts[0])}</td>
+                        <td className="Monthly-settlement-amount">{this.number(s.amounts[1])}</td>
+                    </tr>
+                )}
+                <tr className="Monthly-total">
+                    <td className="Monthly-settlement-title">合計</td>
+                    <td className="Monthly-settlement-amount">{this.state.total.amounts[0]}</td>
+                    <td className="Monthly-settlement-amount">{this.state.total.amounts[1]}</td>
+                </tr>
+            </table>
+        </div>;
+    }
 }
 
-export default Monthly;
+export default withRouter(Monthly);

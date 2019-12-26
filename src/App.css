@@ -1,14 +1,9 @@
-body {
-  font-family: sans-serif;
-  color: #333;
-}
-
-.container {
+.App-container {
   margin: 0 auto;
   width: 50rem;
 }
 
-.app-title {
+.App-title {
   color: #666;
   font-weight: normal;
 }
