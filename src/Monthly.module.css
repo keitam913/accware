@@ -1,33 +1,33 @@
-.Monthly-title {
+.title {
   color: #039;
   font-weight: normal;
 }
 
-.Monthly-settlements {
+.settlements {
   width: 90%;
   border-collapse: collapse;
 }
 
-.Monthly-settlement-title {
+.settlementTitle {
   width: 40%;
   padding: 0.5rem 0.7rem;
 }
 
-.Monthly-settlement-amount {
+.settlementAmount {
   width: 20%;
   text-align: right;
   padding: 0.5rem 0.7rem;
 }
 
-.Monthly-settlement:nth-child(odd) {
+.settlement:nth-child(odd) {
   background: #eef;
 }
 
-.Monthly-adjustment {
+.adjustment {
   color: #009;
 }
 
-.Monthly-total {
+.total {
   background: #ccf;
   font-weight: bold;
 }

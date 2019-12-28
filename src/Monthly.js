@@ -1,33 +1,31 @@
-import React from 'react';
-import './Monthly.css';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import styles from './Monthly.module.css';
+import { useRouteMatch } from 'react-router-dom';
 
-class Monthly extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            settlements: [],
-            total: { amounts: [0, 0] },
-        }
-    }
+function Monthly() {
+    let { params: { year, month } } = useRouteMatch();
+    useEffect(() => {
+        fetchRecords();
+    }, []);
 
-    componentDidMount() {
-        let { match } = this.props;
-        this.year = match.params.year;
-        this.month = match.params.month;
-        this.setState({
-            settlements: [
-                { title: '商品0', amounts: [1000, 0] },
-                { title: '商品1', amounts: [0, 2000] },
-                { title: '月末調整', amounts: [1000, -1000] },
-            ],
-        })
-        this.setState({
-            total: { amounts: [2000, 1000] },
+    let [settlements, setSettlements] = useState([]);
+    let [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
+    let [total, setTotal] = useState({ amounts: [0, 0] });
+
+    function fetchRecords() {
+        setSettlements([
+            { title: '商品0', amounts: [1000, 0] },
+            { title: '商品1', amounts: [0, 2000] },
+        ]);
+        setAdjustment({
+            amounts: [1000, -1000],
+        });
+        setTotal({
+            amounts: [1000, -1000],
         });
     }
 
-    number(n) {
+    function number(n) {
         if (n === 0) {
             return "";
         } else {
@@ -35,25 +33,34 @@ class Monthly extends React.Component {
         }
     }
 
-    render() {
-        return <div className="Monthly">
-            <h2 className="Monthly-title">{this.year}年{this.month}月</h2>
-            <table className="Monthly-settlements">
-                {this.state.settlements.map(s =>
-                    <tr className="Monthly-settlement">
-                        <td className="Monthly-settlement-title">{s.title}</td>
-                        <td className="Monthly-settlement-amount">{this.number(s.amounts[0])}</td>
-                        <td className="Monthly-settlement-amount">{this.number(s.amounts[1])}</td>
+    return (
+        <div className="Monthly">
+            <h2 className={styles.title}>{year}年{month}月</h2>
+            <table className={styles.settlements}>
+                <tbody>
+                    {settlements.map((s, i) =>
+                        <tr key={i} className={styles.settlement}>
+                            <td className={styles.settlementTitle}>{s.title}</td>
+                            {s.amounts.map((a, i) =>
+                                <td key={i} className={styles.settlementAmount}>{number(a)}</td>
+                            )}
+                        </tr>
+                    )}
+                    <tr className={[styles.settlement, styles.adjustment].join(' ')}>
+                        <td className={styles.settlementTitle}>月末調整</td>
+                        {adjustment.amounts.map((a, i) =>
+                            <td key={i} className={styles.settlementAmount}>{a}</td>
+                        )}
                     </tr>
-                )}
-                <tr className="Monthly-total">
-                    <td className="Monthly-settlement-title">合計</td>
-                    <td className="Monthly-settlement-amount">{this.state.total.amounts[0]}</td>
-                    <td className="Monthly-settlement-amount">{this.state.total.amounts[1]}</td>
-                </tr>
+                    <tr className={styles.total}>
+                        <td className={styles.settlementTitle}>合計</td>
+                        <td className={styles.settlementAmount}>{total.amounts[0]}</td>
+                        <td className={styles.settlementAmount}>{total.amounts[1]}</td>
+                    </tr>
+                </tbody>
             </table>
-        </div>;
-    }
+        </div>
+    );
 }
 
-export default withRouter(Monthly);
+export default Monthly;

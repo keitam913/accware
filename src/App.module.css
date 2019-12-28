@@ -1,9 +1,9 @@
-.App-container {
+.app {
   margin: 0 auto;
   width: 50rem;
 }
 
-.App-title {
+.title {
   color: #666;
   font-weight: normal;
 }
