@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Monthly.module.css';
 import { useRouteMatch } from 'react-router-dom';
+import NewForm from './NewForm';
 
 function Monthly() {
     let { params: { year, month } } = useRouteMatch();
@@ -35,7 +36,10 @@ function Monthly() {
 
     return (
         <div className="Monthly">
-            <h2 className={styles.title}>{year}年{month}月</h2>
+            <header className={styles.header}>
+                <h2 className={styles.title}>{year}年{month}月</h2>
+                <NewForm />
+            </header>
             <table className={styles.settlements}>
                 <tbody>
                     {settlements.map((s, i) =>
