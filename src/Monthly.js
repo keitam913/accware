@@ -48,6 +48,9 @@ function Monthly() {
                             {s.amounts.map((a, i) =>
                                 <td key={i} className={styles.settlementAmount}>{number(a)}</td>
                             )}
+                            <td className={styles.deleteColumn}>
+                                <button className={styles.deleteButton}>Delete</button>
+                            </td>
                         </tr>
                     )}
                     <tr className={[styles.settlement, styles.adjustment].join(' ')}>
@@ -55,11 +58,13 @@ function Monthly() {
                         {adjustment.amounts.map((a, i) =>
                             <td key={i} className={styles.settlementAmount}>{a}</td>
                         )}
+                        <td></td>
                     </tr>
                     <tr className={styles.total}>
                         <td className={styles.settlementTitle}>合計</td>
                         <td className={styles.settlementAmount}>{total.amounts[0]}</td>
                         <td className={styles.settlementAmount}>{total.amounts[1]}</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
