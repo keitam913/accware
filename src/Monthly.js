@@ -34,6 +34,15 @@ function Monthly() {
         }
     }
 
+    function deleteItem() {
+        let ans = window.confirm('Delete the item?');
+        if (ans) {
+            
+        } else {
+
+        }
+    }
+
     return (
         <div className="Monthly">
             <header className={styles.header}>
@@ -49,7 +58,7 @@ function Monthly() {
                                 <td key={i} className={styles.settlementAmount}>{number(a)}</td>
                             )}
                             <td className={styles.deleteColumn}>
-                                <button className={styles.deleteButton}>Delete</button>
+                                <button className={styles.deleteButton} onClick={deleteItem}>Delete</button>
                             </td>
                         </tr>
                     )}
