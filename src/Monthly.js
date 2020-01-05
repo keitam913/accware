@@ -46,7 +46,7 @@ function Monthly() {
     return (
         <div className="Monthly">
             <header className={styles.header}>
-                <h2 className={styles.title}>{year}年{month}月</h2>
+                <h2 className={styles.title}>{year}/{month}</h2>
                 <NewForm />
             </header>
             <table className={styles.settlements}>
@@ -63,14 +63,14 @@ function Monthly() {
                         </tr>
                     )}
                     <tr className={[styles.settlement, styles.adjustment].join(' ')}>
-                        <td className={styles.settlementTitle}>月末調整</td>
+                        <td className={styles.settlementTitle}>Adjustment</td>
                         {adjustment.amounts.map((a, i) =>
                             <td key={i} className={styles.settlementAmount}>{a}</td>
                         )}
                         <td></td>
                     </tr>
                     <tr className={styles.total}>
-                        <td className={styles.settlementTitle}>合計</td>
+                        <td className={styles.settlementTitle}>Total</td>
                         <td className={styles.settlementAmount}>{total.amounts[0]}</td>
                         <td className={styles.settlementAmount}>{total.amounts[1]}</td>
                         <td></td>
