@@ -1,7 +1,67 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Monthly.module.css';
 import { useRouteMatch } from 'react-router-dom';
 import NewForm from './NewForm';
+import styled from 'styled-components';
+
+let Title = styled.h2`
+  color: #036;
+  font-weight: normal;
+  margin-top: 0;
+`;
+
+let Header = styled.header`
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: baseline;
+`;
+
+let SettlementTable = styled.table`
+　width: 100%;
+　border-collapse: collapse;
+`;
+
+let Settlement = styled.tr`
+  &:nth-child(odd) {
+    background: #eef;
+  }
+`;
+
+let Adjustment = styled(Settlement)`
+  color: #009;
+`;
+
+let Total = styled.tr`
+  background: #ccf;
+  font-weight: bold;
+`;
+
+let SettlementTitle = styled.td`
+  width: 60%;
+  padding: 0.5rem 0.7rem;
+`;
+
+let SettlementAmount = styled.td`
+  width: 15%;
+  text-align: right;
+  padding: 0.5rem 0.7rem;
+`;
+
+let DeleteColumn = styled.td`
+  width: 10%;
+  text-align: right;
+  font-size: smaller;
+  padding: 0.5rem 0.7rem;
+`;
+
+let DeleteButton = styled.button`
+  background: none;
+  border: none;
+  color: #666;
+  &:hover {
+    color: #900;
+  }
+`;
 
 function Monthly() {
     let { params: { year, month } } = useRouteMatch();
@@ -37,46 +97,47 @@ function Monthly() {
     function deleteItem() {
         let ans = window.confirm('Delete the item?');
         if (ans) {
-            
+
         } else {
+
 
         }
     }
 
     return (
         <div className="Monthly">
-            <header className={styles.header}>
-                <h2 className={styles.title}>{year}/{month}</h2>
+            <Header>
+                <Title>{year}/{month}</Title>
                 <NewForm />
-            </header>
-            <table className={styles.settlements}>
+            </Header>
+            <SettlementTable>
                 <tbody>
                     {settlements.map((s, i) =>
-                        <tr key={i} className={styles.settlement}>
-                            <td className={styles.settlementTitle}>{s.title}</td>
+                        <Settlement key={i}>
+                            <SettlementTitle>{s.title}</SettlementTitle>
                             {s.amounts.map((a, i) =>
-                                <td key={i} className={styles.settlementAmount}>{number(a)}</td>
+                                <SettlementAmount key={i}>{number(a)}</SettlementAmount>
                             )}
-                            <td className={styles.deleteColumn}>
-                                <button className={styles.deleteButton} onClick={deleteItem}>Delete</button>
-                            </td>
-                        </tr>
+                            <DeleteColumn>
+                                <DeleteButton onClick={deleteItem}>Delete</DeleteButton>
+                            </DeleteColumn>
+                        </Settlement>
                     )}
-                    <tr className={[styles.settlement, styles.adjustment].join(' ')}>
-                        <td className={styles.settlementTitle}>Adjustment</td>
+                    <Adjustment>
+                        <SettlementTitle>Adjustment</SettlementTitle>
                         {adjustment.amounts.map((a, i) =>
-                            <td key={i} className={styles.settlementAmount}>{a}</td>
+                            <SettlementAmount key={i}>{a}</SettlementAmount>
                         )}
                         <td></td>
-                    </tr>
-                    <tr className={styles.total}>
-                        <td className={styles.settlementTitle}>Total</td>
-                        <td className={styles.settlementAmount}>{total.amounts[0]}</td>
-                        <td className={styles.settlementAmount}>{total.amounts[1]}</td>
+                    </Adjustment>
+                    <Total>
+                        <SettlementTitle>Total</SettlementTitle>
+                        <SettlementAmount>{total.amounts[0]}</SettlementAmount>
+                        <SettlementAmount>{total.amounts[1]}</SettlementAmount>
                         <td></td>
-                    </tr>
+                    </Total>
                 </tbody>
-            </table>
+            </SettlementTable>
         </div>
     );
 }
