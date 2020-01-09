@@ -16,18 +16,18 @@ let Header = styled.header`
   align-items: baseline;
 `;
 
-let SettlementTable = styled.table`
+let ItemTable = styled.table`
 　width: 100%;
 　border-collapse: collapse;
 `;
 
-let Settlement = styled.tr`
+let Item = styled.tr`
   &:nth-child(odd) {
     background: #eef;
   }
 `;
 
-let Adjustment = styled(Settlement)`
+let Adjustment = styled(Item)`
   color: #009;
 `;
 
@@ -36,12 +36,12 @@ let Total = styled.tr`
   font-weight: bold;
 `;
 
-let SettlementTitle = styled.td`
+let ItemTitle = styled.td`
   width: 60%;
   padding: 0.5rem 0.7rem;
 `;
 
-let SettlementAmount = styled.td`
+let ItemAmount = styled.td`
   width: 15%;
   text-align: right;
   padding: 0.5rem 0.7rem;
@@ -69,12 +69,12 @@ function Monthly() {
         fetchRecords();
     }, []);
 
-    let [settlements, setSettlements] = useState([]);
+    let [items, setItems] = useState([]);
     let [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
     let [total, setTotal] = useState({ amounts: [0, 0] });
 
     function fetchRecords() {
-        setSettlements([
+        setItems([
             { title: '商品0', amounts: [1000, 0] },
             { title: '商品1', amounts: [0, 2000] },
         ]);
@@ -97,10 +97,7 @@ function Monthly() {
     function deleteItem() {
         let ans = window.confirm('Delete the item?');
         if (ans) {
-
         } else {
-
-
         }
     }
 
@@ -110,34 +107,34 @@ function Monthly() {
                 <Title>{year}/{month}</Title>
                 <NewForm />
             </Header>
-            <SettlementTable>
+            <ItemTable>
                 <tbody>
-                    {settlements.map((s, i) =>
-                        <Settlement key={i}>
-                            <SettlementTitle>{s.title}</SettlementTitle>
+                    {items.map((s, i) =>
+                        <Item key={i}>
+                            <ItemTitle>{s.title}</ItemTitle>
                             {s.amounts.map((a, i) =>
-                                <SettlementAmount key={i}>{number(a)}</SettlementAmount>
+                                <ItemAmount key={i}>{number(a)}</ItemAmount>
                             )}
                             <DeleteColumn>
                                 <DeleteButton onClick={deleteItem}>Delete</DeleteButton>
                             </DeleteColumn>
-                        </Settlement>
+                        </Item>
                     )}
                     <Adjustment>
-                        <SettlementTitle>Adjustment</SettlementTitle>
+                        <ItemTitle>Adjustment</ItemTitle>
                         {adjustment.amounts.map((a, i) =>
-                            <SettlementAmount key={i}>{a}</SettlementAmount>
+                            <ItemAmount key={i}>{a}</ItemAmount>
                         )}
                         <td></td>
                     </Adjustment>
                     <Total>
-                        <SettlementTitle>Total</SettlementTitle>
-                        <SettlementAmount>{total.amounts[0]}</SettlementAmount>
-                        <SettlementAmount>{total.amounts[1]}</SettlementAmount>
+                        <ItemTitle>Total</ItemTitle>
+                        <ItemAmount>{total.amounts[0]}</ItemAmount>
+                        <ItemAmount>{total.amounts[1]}</ItemAmount>
                         <td></td>
                     </Total>
                 </tbody>
-            </SettlementTable>
+            </ItemTable>
         </div>
     );
 }
