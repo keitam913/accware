@@ -7,7 +7,7 @@ function parseIdToken(hash) {
 }
 
 function Callback() {
-        let loc = useLocation();
+        const loc = useLocation();
         sessionStorage.setItem('idToken', parseIdToken(loc.hash));
         return <Redirect to="/" />;
 }

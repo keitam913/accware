@@ -21,12 +21,12 @@ const Title = styled.h1`
 `;
 
 function getThisMonth() {
-  let today = new Date();
+  const today = new Date();
   return [today.getFullYear(), today.getMonth() + 1];
 }
 
 function App() {
-  let [year, month] = getThisMonth();
+  const [year, month] = getThisMonth();
   return (
     <Container>
       <Title>Accware</Title>

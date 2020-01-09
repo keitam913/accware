@@ -3,58 +3,58 @@ import { useRouteMatch } from 'react-router-dom';
 import NewForm from './NewForm';
 import styled from 'styled-components';
 
-let Title = styled.h2`
+const Title = styled.h2`
   color: #036;
   font-weight: normal;
   margin-top: 0;
 `;
 
-let Header = styled.header`
+const Header = styled.header`
   display: flex;
   display: -webkit-flex;
   justify-content: space-between;
   align-items: baseline;
 `;
 
-let ItemTable = styled.table`
+const ItemTable = styled.table`
 　width: 100%;
 　border-collapse: collapse;
 `;
 
-let Item = styled.tr`
+const Item = styled.tr`
   &:nth-child(odd) {
     background: #eef;
   }
 `;
 
-let Adjustment = styled(Item)`
+const Adjustment = styled(Item)`
   color: #009;
 `;
 
-let Total = styled.tr`
+const Total = styled.tr`
   background: #ccf;
   font-weight: bold;
 `;
 
-let ItemTitle = styled.td`
+const ItemTitle = styled.td`
   width: 60%;
   padding: 0.5rem 0.7rem;
 `;
 
-let ItemAmount = styled.td`
+const ItemAmount = styled.td`
   width: 15%;
   text-align: right;
   padding: 0.5rem 0.7rem;
 `;
 
-let DeleteColumn = styled.td`
+const DeleteColumn = styled.td`
   width: 10%;
   text-align: right;
   font-size: smaller;
   padding: 0.5rem 0.7rem;
 `;
 
-let DeleteButton = styled.button`
+const DeleteButton = styled.button`
   background: none;
   border: none;
   color: #666;
@@ -64,14 +64,14 @@ let DeleteButton = styled.button`
 `;
 
 function Monthly() {
-    let { params: { year, month } } = useRouteMatch();
+    const { params: { year, month } } = useRouteMatch();
     useEffect(() => {
         fetchRecords();
     }, []);
 
-    let [items, setItems] = useState([]);
-    let [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
-    let [total, setTotal] = useState({ amounts: [0, 0] });
+    const [items, setItems] = useState([]);
+    const [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
+    const [total, setTotal] = useState({ amounts: [0, 0] });
 
     function fetchRecords() {
         setItems([
@@ -95,7 +95,7 @@ function Monthly() {
     }
 
     function deleteItem() {
-        let ans = window.confirm('Delete the item?');
+        const ans = window.confirm('Delete the item?');
         if (ans) {
         } else {
         }
