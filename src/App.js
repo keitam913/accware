@@ -1,14 +1,24 @@
 import React from 'react';
-import styles from './App.module.css';
 import Monthly from './Monthly';
 import Callback from './Callback';
 import Login from './Login';
+import styled from 'styled-components';
 import {
   BrowserRouter,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
+
+const Container = styled.div`
+  margin: 0 auto;
+  width: 50rem;
+`;
+
+const Title = styled.h1`
+  color: #666;
+  font-weight: normal;
+`;
 
 function getThisMonth() {
   let today = new Date();
@@ -18,8 +28,8 @@ function getThisMonth() {
 function App() {
   let [year, month] = getThisMonth();
   return (
-    <div className={styles.app}>
-      <h1 className={styles.title}>Accware</h1>
+    <Container>
+      <Title>Accware</Title>
       <BrowserRouter>
         <Switch>
           <Route path="/:year/:month">
@@ -36,7 +46,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-    </div>
+    </Container>
   );
 }
 
