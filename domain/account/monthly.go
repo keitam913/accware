@@ -6,17 +6,17 @@ import (
 	"github.com/keitam913/accware-api/domain/person"
 )
 
-type Monthly struct {
+type Month struct {
 	items []Item
 }
 
-func (m Monthly) Items() []Item {
+func (m Month) Items() []Item {
 	is := make([]Item, len(m.items))
 	is = append(is, m.items...)
 	return is
 }
 
-func (m Monthly) Adjustments(personService *person.Service) []Adjustment {
+func (m Month) Adjustments(personService *person.Service) []Adjustment {
 	totals := map[string]int{}
 	all := 0
 	for _, item := range m.items {
@@ -28,9 +28,10 @@ func (m Monthly) Adjustments(personService *person.Service) []Adjustment {
 		amount := int(math.Round(float64(all)*personService.PaymentRatio()[person])) - total
 		adjustments = append(adjustments, NewAdjustment(person, amount))
 	}
+	return adjustments
 }
 
-func (m Monthly) Totals(personService *person.Service) []Total {
+func (m Month) Totals(personService *person.Service) []Total {
 	totalMap := map[string]int{}
 	for _, item := range m.items {
 		totalMap[item.Person()] += item.Amount()
