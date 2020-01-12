@@ -1,19 +1,19 @@
 package account
 
 type Total struct {
-	person string
-	amount int
+	personID string
+	amount   int
 }
 
-func NewTotal(person string, amount int) Total {
+func NewTotal(personID string, amount int) Total {
 	return Total{
-		person: person,
-		amount: amount,
+		personID: personID,
+		amount:   amount,
 	}
 }
 
-func (t Total) Person() string {
-	return t.person
+func (t Total) PersonID() string {
+	return t.personID
 }
 
 func (t Total) Amount() int {

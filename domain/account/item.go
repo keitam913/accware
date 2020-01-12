@@ -3,18 +3,18 @@ package account
 import "time"
 
 type Item struct {
-	name   string
-	amount int
-	person string
-	date   time.Time
+	name     string
+	amount   int
+	personID string
+	date     time.Time
 }
 
-func NewItem(name string, amount int, person string, date time.Time) Item {
+func NewItem(name string, amount int, personID string, date time.Time) Item {
 	return Item{
-		name:   name,
-		amount: amount,
-		person: person,
-		date:   date,
+		name:     name,
+		amount:   amount,
+		personID: personID,
+		date:     date,
 	}
 }
 
@@ -26,8 +26,8 @@ func (a Item) Amount() int {
 	return a.amount
 }
 
-func (a Item) Person() string {
-	return a.person
+func (a Item) PersonID() string {
+	return a.personID
 }
 
 func (a Item) Date() time.Time {

@@ -1,19 +1,19 @@
 package account
 
 type Adjustment struct {
-	person string
-	amount int
+	personID string
+	amount   int
 }
 
-func NewAdjustment(person string, amount int) Adjustment {
+func NewAdjustment(personID string, amount int) Adjustment {
 	return Adjustment{
-		person: person,
-		amount: amount,
+		personID: personID,
+		amount:   amount,
 	}
 }
 
-func (t Adjustment) Person() string {
-	return t.person
+func (t Adjustment) PersonID() string {
+	return t.personID
 }
 
 func (t Adjustment) Amount() int {
