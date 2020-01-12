@@ -14,7 +14,7 @@ func (s *Service) GetMonth(year int, month time.Month) (account.Month, error) {
 	return s.Repository.Month(year, month)
 }
 
-func (s *Service) AddItem(name string, amount int, person string, date time.Time) error {
-	item := account.NewItem(name, amount, person, date)
+func (s *Service) AddItem(name string, amount int, personID string, date time.Time) error {
+	item := account.NewItem(name, amount, personID, date)
 	return s.Repository.Add(item)
 }
