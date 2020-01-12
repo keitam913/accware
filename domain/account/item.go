@@ -9,13 +9,13 @@ type Item struct {
 	date     time.Time
 }
 
-func NewItem(name string, amount int, personID string, date time.Time) Item {
+func NewItem(name string, amount int, personID string, date time.Time) (Item, error) {
 	return Item{
 		name:     name,
 		amount:   amount,
 		personID: personID,
 		date:     date,
-	}
+	}, nil
 }
 
 func (a Item) Name() string {

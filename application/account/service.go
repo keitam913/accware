@@ -15,6 +15,9 @@ func (s *Service) GetMonth(year int, month time.Month) (account.Month, error) {
 }
 
 func (s *Service) AddItem(name string, amount int, personID string, date time.Time) error {
-	item := account.NewItem(name, amount, personID, date)
+	item, err := account.NewItem(name, amount, personID, date)
+	if err != nil {
+		return err
+	}
 	return s.Repository.Add(item)
 }
