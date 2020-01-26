@@ -8,7 +8,7 @@ type PersonService struct {
 
 func (ps *PersonService) PaymentRatio(personID string) (float64, error) {
 	for _, person := range ps.Config.Persons {
-		if personID == personID {
+		if person.ID == personID {
 			return person.Ratio, nil
 		}
 	}
