@@ -44,7 +44,7 @@ func (ar *AccountRepository) Month(year int, month time.Month) (account.Month, e
 		if err := rs.Scan(&name, &personID, &amount, &dateStr); err != nil {
 			panic(err)
 		}
-		date, err := time.Parse("2006-01-02 15:04:05", dateStr)
+		date, err := time.ParseInLocation("2006-01-02 15:04:05", dateStr, time.Local)
 		if err != nil {
 			panic(err)
 		}

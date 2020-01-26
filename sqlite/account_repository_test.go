@@ -52,7 +52,7 @@ func TestMonth(t *testing.T) {
 			return
 		}
 
-		tb, err := time.Parse(time.RFC3339, "2020-01-01T00:00:00Z")
+		tb, err := time.ParseInLocation("2006-01-02 15:04:05", "2020-01-01 00:00:00", time.Local)
 		if err != nil {
 			panic(err)
 		}
@@ -60,7 +60,7 @@ func TestMonth(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-		tc, err := time.Parse(time.RFC3339, "2020-01-31T23:59:59Z")
+		tc, err := time.ParseInLocation("2006-01-02 15:04:05", "2020-01-31 23:59:59", time.Local)
 		if err != nil {
 			panic(err)
 		}
