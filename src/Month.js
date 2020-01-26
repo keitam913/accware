@@ -73,18 +73,55 @@ function Month() {
   const [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
   const [total, setTotal] = useState({ amounts: [0, 0] });
 
-  function fetchRecords() {
+  async function fetchRecords() {
+    const res = await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/accounts/${year}/${month}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'ID-Token': sessionStorage.getItem('idToken'),
+      },
+    });
 
+    const j = await res.json()
+    const pids = Object.keys(j.persons);
 
-    setItems([
-      { title: '商品0', amounts: [1000, 0] },
-      { title: '商品1', amounts: [0, 2000] },
-    ]);
+    const ni = [];
+    j.items.forEach((item) => {
+      let am = [0, 0];
+      for (let i = 0; i < pids.length; i++) {
+        if (pids[i] == item.personId) {
+          am[i] = item.amount;
+        }
+      }
+      ni.push({
+        title: item.name,
+        amounts: am,
+      })
+    });
+    setItems(ni);
+
+    const na = [];
+    j.adjustments.forEach((a) => {
+      for (let i = 0; i < pids.length; i++) {
+        if (pids[i] === a.personId) {
+         na[i]  = a.amount;
+        }
+      }
+    });
     setAdjustment({
-      amounts: [1000, -1000],
+      amounts: na,
+    });
+
+    const nt = [];
+    j.totals.forEach((a) => {
+      for (let i = 0; i < pids.length; i++) {
+        if (pids[i] === a.personId) {
+         nt[i]  = a.amount;
+        }
+      }
     });
     setTotal({
-      amounts: [1000, -1000],
+      amounts: nt,
     });
   }
 
