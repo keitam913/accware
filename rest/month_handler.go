@@ -45,7 +45,7 @@ func (mc *MonthHandler) makeResponse(monthAccount account.Month) (Month, error) 
 	if err != nil {
 		return Month{}, err
 	}
-	var is []Item
+	is := []Item{}
 	for _, i := range monthAccount.Items() {
 		is = append(is, Item{
 			Name:     i.Name(),
@@ -54,11 +54,11 @@ func (mc *MonthHandler) makeResponse(monthAccount account.Month) (Month, error) 
 			Date:     i.Date(),
 		})
 	}
-	var as []Amount
+	as := []Amount{}
 	for _, a := range monthAccount.Adjustments(mc.PersonService) {
 		as = append(as, Amount{PersonID: a.PersonID(), Amount: a.Amount()})
 	}
-	var ts []Amount
+	ts := []Amount{}
 	for _, t := range monthAccount.Totals(mc.PersonService) {
 		ts = append(ts, Amount{PersonID: t.PersonID(), Amount: t.Amount()})
 	}

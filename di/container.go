@@ -1,15 +1,20 @@
 package di
 
 import (
-	accountapp "github.com/keitam913/accware-api/application"
+	"database/sql"
+	"io/ioutil"
+
 	"github.com/keitam913/accware-api/account"
-	"github.com/keitam913/accware-api/person"
+	accountapp "github.com/keitam913/accware-api/application"
 	"github.com/keitam913/accware-api/config"
+	"github.com/keitam913/accware-api/person"
 	"github.com/keitam913/accware-api/rest"
+	"github.com/keitam913/accware-api/sqlite"
 
 	"github.com/keitam913/accware-api/oidc"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type Container struct{}
@@ -32,7 +37,24 @@ func (c Container) AccountApplicationService() *accountapp.Service {
 }
 
 func (c Container) AccountRepository() account.Respository {
-	return nil
+	return &sqlite.AccountRepository{
+		DB: c.DB(),
+	}
+}
+
+func (c Container) DB() *sql.DB {
+	db, err := sql.Open("sqlite3", "accware.sqlite3")
+	if err != nil {
+		panic(err)
+	}
+	sc, err := ioutil.ReadFile("./schema.sql")
+	if err != nil {
+		panic(err)
+	}
+	if _, err := db.Exec(string(sc)); err != nil {
+		panic(err)
+	}
+	return db
 }
 
 func (c Container) OIDCService() *oidc.Service {

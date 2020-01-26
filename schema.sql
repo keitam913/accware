@@ -1,4 +1,4 @@
-create table item (
+create table if not exists item (
         name text not null,
         person_id text not null,
         amount integer not null,
