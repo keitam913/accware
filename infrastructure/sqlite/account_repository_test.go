@@ -74,3 +74,36 @@ func TestMonth(t *testing.T) {
 		}
 	})
 }
+
+func TestAdd(t *testing.T) {
+	WithDB(func(db *sql.DB) {
+		repo := &sqlite.AccountRepository{DB: db}
+		ti, err := time.Parse(time.RFC3339, "2020-01-01T00:00:00Z")
+		if err != nil {
+			panic(err)
+		}
+		item, err := account.NewItem("a", 100, "a@mail", ti)
+		if err != nil {
+			panic(err)
+		}
+		if err := repo.Add(item); err != nil {
+			t.Fatal(err)
+			return
+		}
+		row := db.QueryRow("select name, person_id, amount, date from item")
+
+		var (
+			name, personID, date string
+			amount               int
+		)
+		if err := row.Scan(&name, &personID, &amount, &date); err != nil {
+			t.Fatal(err)
+			return
+		}
+		got := []interface{}{name, personID, amount, date}
+		want := []interface{}{"a", "a@mail", 100, "2020-01-01 00:00:00"}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got %#v, want %#v", got, want)
+		}
+	})
+}

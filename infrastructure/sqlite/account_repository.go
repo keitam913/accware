@@ -58,5 +58,9 @@ func (ar *AccountRepository) Month(year int, month time.Month) (account.Month, e
 }
 
 func (ar *AccountRepository) Add(item account.Item) error {
+	d := item.Date().Format("2006-01-02 15:04:05")
+	if _, err := ar.DB.Exec("insert into item (name, person_id, amount, date) values (?, ?, ?, ?)", item.Name(), item.PersonID(), item.Amount(), d); err != nil {
+		return err
+	}
 	return nil
 }
