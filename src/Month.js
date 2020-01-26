@@ -64,79 +64,81 @@ const DeleteButton = styled.button`
 `;
 
 function Month() {
-    const { params: { year, month } } = useRouteMatch();
-    useEffect(() => {
-        fetchRecords();
-    }, []);
+  const { params: { year, month } } = useRouteMatch();
+  useEffect(() => {
+    fetchRecords();
+  }, []);
 
-    const [items, setItems] = useState([]);
-    const [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
-    const [total, setTotal] = useState({ amounts: [0, 0] });
+  const [items, setItems] = useState([]);
+  const [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
+  const [total, setTotal] = useState({ amounts: [0, 0] });
 
-    function fetchRecords() {
-        setItems([
-            { title: '商品0', amounts: [1000, 0] },
-            { title: '商品1', amounts: [0, 2000] },
-        ]);
-        setAdjustment({
-            amounts: [1000, -1000],
-        });
-        setTotal({
-            amounts: [1000, -1000],
-        });
+  function fetchRecords() {
+
+
+    setItems([
+      { title: '商品0', amounts: [1000, 0] },
+      { title: '商品1', amounts: [0, 2000] },
+    ]);
+    setAdjustment({
+      amounts: [1000, -1000],
+    });
+    setTotal({
+      amounts: [1000, -1000],
+    });
+  }
+
+  function number(n) {
+    if (n === 0) {
+      return "";
+    } else {
+      return n.toString();
     }
+  }
 
-    function number(n) {
-        if (n === 0) {
-            return "";
-        } else {
-            return n.toString();
-        }
+  function deleteItem() {
+    const ans = window.confirm('Delete the item?');
+    if (ans) {
+    } else {
     }
+  }
 
-    function deleteItem() {
-        const ans = window.confirm('Delete the item?');
-        if (ans) {
-        } else {
-        }
-    }
-
-    return (
-        <div className="Month">
-            <Header>
-                <Title>{year}/{month}</Title>
-                <NewForm />
-            </Header>
-            <ItemTable>
-                <tbody>
-                    {items.map((s, i) =>
-                        <Item key={i}>
-                            <ItemTitle>{s.title}</ItemTitle>
-                            {s.amounts.map((a, i) =>
-                                <ItemAmount key={i}>{number(a)}</ItemAmount>
-                            )}
-                            <DeleteColumn>
-                                <DeleteButton onClick={deleteItem}>Delete</DeleteButton>
-                            </DeleteColumn>
-                        </Item>
-                    )}
-                    <Adjustment>
-                        <ItemTitle>Adjustment</ItemTitle>
-                        {adjustment.amounts.map((a, i) =>
-                            <ItemAmount key={i}>{a}</ItemAmount>
-                        )}
-                        <td></td>
-                    </Adjustment>
-                    <Total>
-                        <ItemTitle>Total</ItemTitle>
-                        <ItemAmount>{total.amounts[0]}</ItemAmount>
-                        <ItemAmount>{total.amounts[1]}</ItemAmount>
-                        <td></td>
-                    </Total>
-                </tbody>
-            </ItemTable>
-        </div>
-    );
+  return (
+    <div className="Month">
+      <Header>
+        <Title>{year}/{month}</Title>
+        <NewForm />
+      </Header>
+      <ItemTable>
+        <tbody>
+          {items.map((s, i) =>
+            <Item key={i}>
+              <ItemTitle>{s.title}</ItemTitle>
+              {s.amounts.map((a, i) =>
+                <ItemAmount key={i}>{number(a)}</ItemAmount>
+              )}
+              <DeleteColumn>
+                <DeleteButton onClick={deleteItem}>Delete</DeleteButton>
+              </DeleteColumn>
+            </Item>
+          )}
+          <Adjustment>
+            <ItemTitle>Adjustment</ItemTitle>
+            {adjustment.amounts.map((a, i) =>
+              <ItemAmount key={i}>{a}</ItemAmount>
+            )}
+            <td></td>
+          </Adjustment>
+          <Total>
+            <ItemTitle>Total</ItemTitle>
+            <ItemAmount>{total.amounts[0]}</ItemAmount>
+            <ItemAmount>{total.amounts[1]}</ItemAmount>
+            <td></td>
+          </Total>
+        </tbody>
+      </ItemTable>
+    </div>
+  );
 }
 
 export default Month;
