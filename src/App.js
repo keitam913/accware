@@ -1,5 +1,5 @@
 import React from 'react';
-import Monthly from './Monthly';
+import Month from './Month';
 import Callback from './Callback';
 import Login from './Login';
 import styled from 'styled-components';
@@ -33,7 +33,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/:year/:month">
-            <Monthly />
+            <Month />
           </Route>
           <Route path="/login">
             <Login />

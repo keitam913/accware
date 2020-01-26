@@ -63,7 +63,7 @@ const DeleteButton = styled.button`
   }
 `;
 
-function Monthly() {
+function Month() {
     const { params: { year, month } } = useRouteMatch();
     useEffect(() => {
         fetchRecords();
@@ -102,7 +102,7 @@ function Monthly() {
     }
 
     return (
-        <div className="Monthly">
+        <div className="Month">
             <Header>
                 <Title>{year}/{month}</Title>
                 <NewForm />
@@ -139,4 +139,4 @@ function Monthly() {
     );
 }
 
-export default Monthly;
+export default Month;
