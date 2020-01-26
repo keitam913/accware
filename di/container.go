@@ -20,13 +20,19 @@ import (
 type Container struct{}
 
 func (c Container) Router() *gin.Engine {
-	return rest.NewRouter(c.OIDCService(), c.MonthHandler())
+	return rest.NewRouter(c.OIDCService(), c.MonthHandler(), c.ItemHandler())
 }
 
 func (c Container) MonthHandler() *rest.MonthHandler {
 	return &rest.MonthHandler{
 		Service:       c.AccountApplicationService(),
 		PersonService: c.PersonService(),
+	}
+}
+
+func (c Container) ItemHandler() *rest.ItemHandler {
+	return &rest.ItemHandler{
+		Service: c.AccountApplicationService(),
 	}
 }
 

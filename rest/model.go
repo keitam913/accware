@@ -1,7 +1,5 @@
 package rest
 
-import "time"
-
 type Month struct {
 	Persons     map[string]string `json:"persons"`
 	Items       []Item            `json:"items"`
@@ -10,10 +8,10 @@ type Month struct {
 }
 
 type Item struct {
-	Name     string    `json:"name"`
-	Amount   int       `json:"amount"`
-	PersonID string    `json:"personId"`
-	Date     time.Time `json:"date"`
+	Name     string `json:"name"`
+	Amount   int    `json:"amount"`
+	PersonID string `json:"personId"`
+	Date     string `json:"date"`
 }
 
 type Amount struct {
