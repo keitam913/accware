@@ -4,10 +4,10 @@ import (
 	accountapp "github.com/keitam913/accware-api/application"
 	"github.com/keitam913/accware-api/account"
 	"github.com/keitam913/accware-api/person"
-	"github.com/keitam913/accware-api/infrastructure/config"
-	"github.com/keitam913/accware-api/infrastructure/rest"
+	"github.com/keitam913/accware-api/config"
+	"github.com/keitam913/accware-api/rest"
 
-	"github.com/keitam913/accware-api/infrastructure/oidc"
+	"github.com/keitam913/accware-api/oidc"
 
 	"github.com/gin-gonic/gin"
 )

@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/keitam913/accware-api/account"
-	"github.com/keitam913/accware-api/infrastructure/sqlite"
+	"github.com/keitam913/accware-api/sqlite"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -20,7 +20,7 @@ func WithDB(f func(db *sql.DB)) {
 	}
 	defer os.Remove("test.sqlite3")
 	defer db.Close()
-	sc, err := ioutil.ReadFile("../../schema.sql")
+	sc, err := ioutil.ReadFile("../schema.sql")
 	if err != nil {
 		panic(err)
 	}

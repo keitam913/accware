@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/keitam913/accware-api/infrastructure/oidc"
+	"github.com/keitam913/accware-api/oidc"
 
 	"github.com/gin-gonic/gin"
 )
