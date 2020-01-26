@@ -10,8 +10,14 @@ type Month struct {
 	items []Item
 }
 
+func NewMonth(items []Item) Month {
+	return Month{
+		items: items,
+	}
+}
+
 func (m Month) Items() []Item {
-	is := make([]Item, len(m.items))
+	var is []Item
 	is = append(is, m.items...)
 	return is
 }
