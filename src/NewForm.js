@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -57,32 +57,39 @@ const SubmitButton = styled.button`
 `;
 
 function NewForm() {
-        const [enabled, setEnabled] = useState();
+  const [enabled, setEnabled] = useState();
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
 
-        function handleSubmit() {
-                console.log('submit');
-        }
+  function handleSubmit() {
+    console.log('submit');
+  }
 
-        function toggleEnabled() {
-                setEnabled(!enabled);
-        }
+  function toggleEnabled() {
+    setEnabled(!enabled);
+  }
 
-        return (
-                <Container>
-                        <ToggleButton onClick={toggleEnabled}>New</ToggleButton>
-                        {enabled ? (
-                                <Form onSubmit={handleSubmit}>
-                                        <FormBody>
-                                                <InputLabel>Title</InputLabel>
-                                                <InputField><Input name="inputTitle"></Input></InputField>
-                                                <InputLabel>Amount</InputLabel>
-                                                <InputField><Input name="inputAmount"></Input></InputField>
-                                        </FormBody>
-                                        <SubmitButton type="submit">Submit</SubmitButton>
-                                </Form>
-                        ) : []}
-                </Container>
-        );
+  function handleDateChange(event) {
+    setDate(event.target.value);
+  }
+
+  return (
+    <Container>
+      <ToggleButton onClick={toggleEnabled}>New</ToggleButton>
+      {enabled ? (
+        <Form onSubmit={handleSubmit}>
+          <FormBody>
+            <InputLabel>Date</InputLabel>
+            <InputField><Input name="date" type="date" value={date} onChange={handleDateChange}></Input></InputField>
+            <InputLabel>Title</InputLabel>
+            <InputField><Input name="name" type="text"></Input></InputField>
+            <InputLabel>Amount</InputLabel>
+            <InputField><Input name="amount"></Input></InputField>
+          </FormBody>
+          <SubmitButton type="submit">Submit</SubmitButton>
+        </Form>
+      ) : []}
+    </Container>
+  );
 }
 
 export default NewForm;
