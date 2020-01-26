@@ -60,8 +60,20 @@ function NewForm() {
   const [enabled, setEnabled] = useState();
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
 
-  function handleSubmit() {
-    console.log('submit');
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const res = await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/items`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'ID-Token': sessionStorage.getItem('idToken'),
+      },
+      body: JSON.stringify({
+        date: event.target.date.value,
+        name: event.target.name.value,
+        amount: parseInt(event.target.amount.value),
+      }),
+    });
   }
 
   function toggleEnabled() {

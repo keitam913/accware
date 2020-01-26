@@ -66,14 +66,14 @@ const DeleteButton = styled.button`
 function Month() {
   const { params: { year, month } } = useRouteMatch();
   useEffect(() => {
-    fetchRecords();
+    updateRecords();
   }, []);
 
   const [items, setItems] = useState([]);
   const [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
   const [total, setTotal] = useState({ amounts: [0, 0] });
 
-  async function fetchRecords() {
+  async function updateRecords() {
     const res = await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/accounts/${year}/${month}`, {
       method: 'GET',
       mode: 'cors',
