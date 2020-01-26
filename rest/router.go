@@ -26,7 +26,7 @@ func AuthMiddleware(idService *oidc.Service) gin.HandlerFunc {
 func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler *ItemHandler) *gin.Engine {
 	r := gin.Default()
 	r.Use(AuthMiddleware(idService))
-	r.GET("/accounts/:year/:month", monthHandler.Get)
-	r.POST("/items", itemHandler.Post)
+	r.GET("/v1/accounts/:year/:month", monthHandler.Get)
+	r.POST("/v1/items", itemHandler.Post)
 	return r
 }
