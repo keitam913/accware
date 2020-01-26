@@ -32,10 +32,16 @@ func WithDB(f func(db *sql.DB)) {
 
 func TestMonth(t *testing.T) {
 	WithDB(func(db *sql.DB) {
-		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("A", "a@mail", 100, "2020-01-01 00:00:00")`); err != nil {
+		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("A", "b@mail", 100, "2019-12-31 23:59:59")`); err != nil {
 			panic(err)
 		}
-		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("B", "b@mail", 100, "2020-01-31 23:59:59")`); err != nil {
+		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("B", "a@mail", 100, "2020-01-01 00:00:00")`); err != nil {
+			panic(err)
+		}
+		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("C", "b@mail", 100, "2020-01-31 23:59:59")`); err != nil {
+			panic(err)
+		}
+		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("D", "b@mail", 100, "2020-02-01 00:00:00")`); err != nil {
 			panic(err)
 		}
 		repo := &sqlite.AccountRepository{DB: db}
@@ -46,25 +52,25 @@ func TestMonth(t *testing.T) {
 			return
 		}
 
-		t0, err := time.Parse(time.RFC3339, "2020-01-01T00:00:00Z")
+		tb, err := time.Parse(time.RFC3339, "2020-01-01T00:00:00Z")
 		if err != nil {
 			panic(err)
 		}
-		n0, err := account.NewItem("A", 100, "a@mail", t0)
+		ib, err := account.NewItem("B", 100, "a@mail", tb)
 		if err != nil {
 			panic(err)
 		}
-		t1, err := time.Parse(time.RFC3339, "2020-01-01T23:59:59Z")
+		tc, err := time.Parse(time.RFC3339, "2020-01-31T23:59:59Z")
 		if err != nil {
 			panic(err)
 		}
-		n1, err := account.NewItem("B", 100, "b@mail", t1)
+		ic, err := account.NewItem("C", 100, "b@mail", tc)
 		if err != nil {
 			panic(err)
 		}
-		want := []account.Item{n0, n1}
+		want := []account.Item{ib, ic}
 		if !reflect.DeepEqual(m.Items(), want) {
-			t.Errorf("want %#v, but %#v", want, m.Items())
+			t.Errorf("want %#v got %#v", want, m.Items())
 		}
 	})
 }
