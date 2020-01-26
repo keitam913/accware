@@ -1,6 +1,6 @@
 package config
 
-import "github.com/keitam913/accware-api/domain/person"
+import "github.com/keitam913/accware-api/person"
 
 type PersonService struct {
 	Config *Config

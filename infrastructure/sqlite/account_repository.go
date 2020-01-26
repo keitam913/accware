@@ -7,7 +7,7 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 
-	"github.com/keitam913/accware-api/domain/account"
+	"github.com/keitam913/accware-api/account"
 )
 
 type AccountRepository struct {

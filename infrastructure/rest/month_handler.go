@@ -7,13 +7,13 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	accountapp "github.com/keitam913/accware-api/application/account"
-	"github.com/keitam913/accware-api/domain/account"
-	"github.com/keitam913/accware-api/domain/person"
+	"github.com/keitam913/accware-api/account"
+	"github.com/keitam913/accware-api/application"
+	"github.com/keitam913/accware-api/person"
 )
 
 type MonthHandler struct {
-	Service       *accountapp.Service
+	Service       *application.Service
 	PersonService person.Service
 }
 

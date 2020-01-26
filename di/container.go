@@ -1,9 +1,9 @@
 package di
 
 import (
-	accountapp "github.com/keitam913/accware-api/application/account"
-	"github.com/keitam913/accware-api/domain/account"
-	"github.com/keitam913/accware-api/domain/person"
+	accountapp "github.com/keitam913/accware-api/application"
+	"github.com/keitam913/accware-api/account"
+	"github.com/keitam913/accware-api/person"
 	"github.com/keitam913/accware-api/infrastructure/config"
 	"github.com/keitam913/accware-api/infrastructure/rest"
 
