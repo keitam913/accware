@@ -48,6 +48,7 @@ func (mc *MonthHandler) makeResponse(monthAccount account.Month) (Month, error) 
 	is := []Item{}
 	for _, i := range monthAccount.Items() {
 		is = append(is, Item{
+			ID:       i.ID(),
 			Name:     i.Name(),
 			Amount:   i.Amount(),
 			PersonID: i.PersonID(),

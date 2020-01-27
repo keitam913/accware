@@ -8,6 +8,7 @@ type Month struct {
 }
 
 type Item struct {
+	ID       string `json:"id"`
 	Name     string `json:"name"`
 	Amount   int    `json:"amount"`
 	PersonID string `json:"personId"`
