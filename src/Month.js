@@ -104,7 +104,7 @@ function Month() {
     j.adjustments.forEach((a) => {
       for (let i = 0; i < pids.length; i++) {
         if (pids[i] === a.personId) {
-         na[i]  = a.amount;
+          na[i] = a.amount;
         }
       }
     });
@@ -116,7 +116,7 @@ function Month() {
     j.totals.forEach((a) => {
       for (let i = 0; i < pids.length; i++) {
         if (pids[i] === a.personId) {
-         nt[i]  = a.amount;
+          nt[i] = a.amount;
         }
       }
     });
@@ -144,7 +144,7 @@ function Month() {
     <div className="Month">
       <Header>
         <Title>{year}/{month}</Title>
-        <NewForm />
+        <NewForm reload={updateRecords} />
       </Header>
       <ItemTable>
         <tbody>
