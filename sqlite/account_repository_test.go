@@ -52,25 +52,32 @@ func TestMonth(t *testing.T) {
 			return
 		}
 
-		tb, err := time.ParseInLocation("2006-01-02 15:04:05", "2020-01-01 00:00:00", time.Local)
+		t0, err := time.ParseInLocation("2006-01-02 15:04:05", "2020-01-01 00:00:00", time.Local)
 		if err != nil {
 			panic(err)
 		}
-		ib, err := account.NewItem("B", 100, "a@mail", tb)
+		wantLen := 2
+		want0, err := account.NewItem("B", 100, "a@mail", t0)
 		if err != nil {
 			panic(err)
 		}
-		tc, err := time.ParseInLocation("2006-01-02 15:04:05", "2020-01-31 23:59:59", time.Local)
+		t1, err := time.ParseInLocation("2006-01-02 15:04:05", "2020-01-31 23:59:59", time.Local)
 		if err != nil {
 			panic(err)
 		}
-		ic, err := account.NewItem("C", 100, "b@mail", tc)
+		want1, err := account.NewItem("C", 100, "b@mail", t1)
 		if err != nil {
 			panic(err)
 		}
-		want := []account.Item{ib, ic}
-		if !reflect.DeepEqual(m.Items(), want) {
-			t.Errorf("want %#v got %#v", want, m.Items())
+		if len(m.Items()) != wantLen {
+			t.Errorf("len(items) = %d; want %d", len(m.Items()), wantLen)
+			return
+		}
+		if !m.Items()[0].Equals(want0) {
+			t.Errorf("items[0] = %+v; want %+v", m.Items()[0], want0)
+		}
+		if !m.Items()[1].Equals(want1) {
+			t.Errorf("items[1] == %+v; want %+v", m.Items()[1], want1)
 		}
 	})
 }
