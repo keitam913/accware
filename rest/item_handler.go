@@ -17,7 +17,6 @@ func (ih *ItemHandler) Post(ctx *gin.Context) {
 	var item Item
 	if err := json.NewDecoder(ctx.Request.Body).Decode(&item); err != nil {
 		panic(err)
-		return
 	}
 
 	d, err := time.ParseInLocation("2006-01-02", item.Date, time.Local)
@@ -28,7 +27,6 @@ func (ih *ItemHandler) Post(ctx *gin.Context) {
 
 	if err := ih.Service.AddItem(item.Name, item.Amount, ctx.GetString("id"), d); err != nil {
 		panic(err)
-		return
 	}
 
 	ctx.Status(http.StatusNoContent)
