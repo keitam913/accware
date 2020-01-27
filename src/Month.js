@@ -54,7 +54,7 @@ const DeleteColumn = styled.td`
   padding: 0.5rem 0.7rem;
 `;
 
-const DeleteButton = styled.button`
+const DeleteButton_ = styled.button`
   background: none;
   border: none;
   color: #666;
@@ -62,6 +62,24 @@ const DeleteButton = styled.button`
     color: #900;
   }
 `;
+
+function DeleteButton({ itemId, reload }) {
+  async function deleteItem() {
+    const ans = window.confirm('Delete the item?');
+    if (!ans) {
+      return;
+    }
+    await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/items/${itemId}`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'ID-Token': sessionStorage.getItem('idToken'),
+      },
+    });
+    reload();
+  }
+  return <DeleteButton_ onClick={deleteItem}>Delete</DeleteButton_>
+}
 
 function Month() {
   const { params: { year, month } } = useRouteMatch();
@@ -94,6 +112,7 @@ function Month() {
         }
       }
       ni.push({
+        id: item.id,
         title: item.name,
         amounts: am,
       })
@@ -133,13 +152,6 @@ function Month() {
     }
   }
 
-  function deleteItem() {
-    const ans = window.confirm('Delete the item?');
-    if (ans) {
-    } else {
-    }
-  }
-
   return (
     <div className="Month">
       <Header>
@@ -155,7 +167,7 @@ function Month() {
                 <ItemAmount key={i}>{number(a)}</ItemAmount>
               )}
               <DeleteColumn>
-                <DeleteButton onClick={deleteItem}>Delete</DeleteButton>
+                <DeleteButton reload={updateRecords} itemId={s.id}>Delete</DeleteButton>
               </DeleteColumn>
             </Item>
           )}
