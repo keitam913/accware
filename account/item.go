@@ -14,8 +14,12 @@ type Item struct {
 }
 
 func NewItem(name string, amount int, personID string, date time.Time) (Item, error) {
+	return NewItemWithID(uuid.Must(uuid.NewRandom()).String(), name, amount, personID, date)
+}
+
+func NewItemWithID(id, name string, amount int, personID string, date time.Time) (Item, error) {
 	return Item{
-		id:       uuid.Must(uuid.NewRandom()).String(),
+		id:       id,
 		name:     name,
 		amount:   amount,
 		personID: personID,
@@ -41,8 +45,4 @@ func (a Item) PersonID() string {
 
 func (a Item) Date() time.Time {
 	return a.date
-}
-
-func (a Item) Equals(other Item) bool {
-	return a.Name() == other.Name() && a.Amount() == other.Amount() && a.PersonID() == other.PersonID() && a.Date().Equal(other.Date())
 }

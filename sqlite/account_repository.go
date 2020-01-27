@@ -27,7 +27,7 @@ func (ar *AccountRepository) Month(year int, month time.Month) (account.Month, e
 		nextMonth = month + 1
 	}
 	rs, err := sq.
-		Select("name", "person_id", "amount", "date").
+		Select("id", "name", "person_id", "amount", "date").
 		From("item").
 		Where(sq.And{sq.GtOrEq{"date": fmt.Sprintf("%04d-%02d-01", year, month)}, sq.Lt{"date": fmt.Sprintf("%04d-%02d-01", nextYear, nextMonth)}}).
 		RunWith(ar.DB).
@@ -38,17 +38,17 @@ func (ar *AccountRepository) Month(year int, month time.Month) (account.Month, e
 	var items []account.Item
 	for rs.Next() {
 		var (
-			name, personID, dateStr string
-			amount                  int
+			id, name, personID, dateStr string
+			amount                      int
 		)
-		if err := rs.Scan(&name, &personID, &amount, &dateStr); err != nil {
+		if err := rs.Scan(&id, &name, &personID, &amount, &dateStr); err != nil {
 			panic(err)
 		}
 		date, err := time.ParseInLocation("2006-01-02 15:04:05", dateStr, time.Local)
 		if err != nil {
 			panic(err)
 		}
-		item, err := account.NewItem(name, amount, personID, date)
+		item, err := account.NewItemWithID(id, name, amount, personID, date)
 		if err != nil {
 			panic(err)
 		}
@@ -59,7 +59,7 @@ func (ar *AccountRepository) Month(year int, month time.Month) (account.Month, e
 
 func (ar *AccountRepository) Add(item account.Item) error {
 	d := item.Date().Format("2006-01-02 15:04:05")
-	if _, err := ar.DB.Exec("insert into item (name, person_id, amount, date) values (?, ?, ?, ?)", item.Name(), item.PersonID(), item.Amount(), d); err != nil {
+	if _, err := ar.DB.Exec("insert into item (id, name, person_id, amount, date) values (?, ?, ?, ?, ?)", item.ID(), item.Name(), item.PersonID(), item.Amount(), d); err != nil {
 		return err
 	}
 	return nil

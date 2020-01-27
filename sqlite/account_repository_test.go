@@ -32,16 +32,16 @@ func WithDB(f func(db *sql.DB)) {
 
 func TestMonth(t *testing.T) {
 	WithDB(func(db *sql.DB) {
-		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("A", "b@mail", 100, "2019-12-31 23:59:59")`); err != nil {
+		if _, err := db.Exec(`insert into item (id, name, person_id, amount, date) values ("0", "A", "b@mail", 100, "2019-12-31 23:59:59")`); err != nil {
 			panic(err)
 		}
-		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("B", "a@mail", 100, "2020-01-01 00:00:00")`); err != nil {
+		if _, err := db.Exec(`insert into item (id, name, person_id, amount, date) values ("1", "B", "a@mail", 100, "2020-01-01 00:00:00")`); err != nil {
 			panic(err)
 		}
-		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("C", "b@mail", 100, "2020-01-31 23:59:59")`); err != nil {
+		if _, err := db.Exec(`insert into item (id, name, person_id, amount, date) values ("2", "C", "b@mail", 100, "2020-01-31 23:59:59")`); err != nil {
 			panic(err)
 		}
-		if _, err := db.Exec(`insert into item (name, person_id, amount, date) values ("D", "b@mail", 100, "2020-02-01 00:00:00")`); err != nil {
+		if _, err := db.Exec(`insert into item (id, name, person_id, amount, date) values ("3", "D", "b@mail", 100, "2020-02-01 00:00:00")`); err != nil {
 			panic(err)
 		}
 		repo := &sqlite.AccountRepository{DB: db}
@@ -57,7 +57,7 @@ func TestMonth(t *testing.T) {
 			panic(err)
 		}
 		wantLen := 2
-		want0, err := account.NewItem("B", 100, "a@mail", t0)
+		want0, err := account.NewItemWithID("1", "B", 100, "a@mail", t0)
 		if err != nil {
 			panic(err)
 		}
@@ -65,7 +65,7 @@ func TestMonth(t *testing.T) {
 		if err != nil {
 			panic(err)
 		}
-		want1, err := account.NewItem("C", 100, "b@mail", t1)
+		want1, err := account.NewItemWithID("2", "C", 100, "b@mail", t1)
 		if err != nil {
 			panic(err)
 		}
@@ -73,10 +73,10 @@ func TestMonth(t *testing.T) {
 			t.Errorf("len(items) = %d; want %d", len(m.Items()), wantLen)
 			return
 		}
-		if !m.Items()[0].Equals(want0) {
+		if !reflect.DeepEqual(m.Items()[0], want0) {
 			t.Errorf("items[0] = %+v; want %+v", m.Items()[0], want0)
 		}
-		if !m.Items()[1].Equals(want1) {
+		if !reflect.DeepEqual(m.Items()[1], want1) {
 			t.Errorf("items[1] == %+v; want %+v", m.Items()[1], want1)
 		}
 	})
