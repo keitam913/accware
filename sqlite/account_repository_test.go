@@ -114,3 +114,34 @@ func TestAdd(t *testing.T) {
 		}
 	})
 }
+
+func TestRemove(t *testing.T) {
+	WithDB(func(db *sql.DB) {
+		repo := &sqlite.AccountRepository{DB: db}
+		if _, err := db.Exec(`insert into item (id, name, person_id, amount, date) values ("0", "A", "b@mail", 100, "2019-12-31 23:59:59")`); err != nil {
+			t.Fatal(err)
+		}
+		if _, err := db.Exec(`insert into item (id, name, person_id, amount, date) values ("1", "B", "a@mail", 100, "2020-01-01 00:00:00")`); err != nil {
+			t.Fatal(err)
+		}
+		if err := repo.Remove("0"); err != nil {
+			t.Fatal(err)
+		}
+		row, err := db.Query("select id from item")
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got []string
+		for row.Next() {
+			var id string
+			if err := row.Scan(&id); err != nil {
+				t.Fatal(err)
+			}
+			got = append(got, id)
+		}
+		want := []string{"1"}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("ids = %+v; want %+v", got, want)
+		}
+	})
+}

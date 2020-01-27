@@ -7,4 +7,5 @@ import (
 type Respository interface {
 	Month(year int, month time.Month) (Month, error)
 	Add(item Item) error
+	Remove(id string) error
 }

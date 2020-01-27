@@ -64,3 +64,10 @@ func (ar *AccountRepository) Add(item account.Item) error {
 	}
 	return nil
 }
+
+func (ar *AccountRepository) Remove(id string) error {
+	if _, err := ar.DB.Exec("delete from item where id = ?", id); err != nil {
+		return err
+	}
+	return nil
+}
