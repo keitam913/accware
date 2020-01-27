@@ -56,7 +56,7 @@ const SubmitButton = styled.button`
   width: 8rem;
 `;
 
-function NewForm({reload}) {
+function NewForm({ reload }) {
   const [enabled, setEnabled] = useState();
   const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
 
