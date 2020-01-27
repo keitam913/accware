@@ -31,3 +31,10 @@ func (ih *ItemHandler) Post(ctx *gin.Context) {
 
 	ctx.Status(http.StatusNoContent)
 }
+
+func (ih *ItemHandler) Delete(ctx *gin.Context) {
+	if err := ih.Service.DeleteItem(ctx.Param("id")); err != nil {
+		panic(err)
+	}
+	ctx.Status(http.StatusNoContent)
+}

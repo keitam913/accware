@@ -42,6 +42,7 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 
 	r.GET("/v1/accounts/:year/:month", monthHandler.Get)
 	r.POST("/v1/items", itemHandler.Post)
+	r.DELETE("/v1/items/:id", itemHandler.Delete)
 
 	return r
 }

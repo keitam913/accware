@@ -21,3 +21,7 @@ func (s *Service) AddItem(name string, amount int, personID string, date time.Ti
 	}
 	return s.Repository.Add(item)
 }
+
+func (s *Service) DeleteItem(id string) error {
+	return s.Repository.Remove(id)
+}
