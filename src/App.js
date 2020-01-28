@@ -12,7 +12,12 @@ import {
 
 const Container = styled.div`
   margin: 0 auto;
-  width: 50rem;
+  @media (max-width: 55rem) {
+    width: 95%;
+  }
+  @media (min-width: 55rem) {
+    width: 50rem;
+  }
 `;
 
 const Title = styled.h1`
