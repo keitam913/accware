@@ -3,6 +3,7 @@ package di
 import (
 	"database/sql"
 	"io/ioutil"
+	"os"
 
 	"github.com/keitam913/accware-api/account"
 	accountapp "github.com/keitam913/accware-api/application"
@@ -74,7 +75,7 @@ func (c Container) PersonService() person.Service {
 }
 
 func (c Container) Config() *config.Config {
-	conf, err := config.Load("config.dev.yaml")
+	conf, err := config.Load(os.Args[1])
 	if err != nil {
 		panic(err)
 	}
