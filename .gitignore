@@ -1,3 +1,4 @@
 scratch/
 /config.dev.yaml
 /*.sqlite3
+/config.yaml
