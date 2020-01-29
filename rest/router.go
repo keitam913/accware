@@ -2,7 +2,6 @@ package rest
 
 import (
 	"errors"
-	"log"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -14,11 +13,14 @@ import (
 func AuthMiddleware(idService *oidc.Service) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		id, err := idService.Authenticate(ctx.Request.Header.Get("ID-TOKEN"))
-		if errors.Is(err, oidc.InvalidToken) {
-			ctx.AbortWithStatus(http.StatusUnauthorized)
+		if err != nil {
+			if errors.Is(err, oidc.InvalidToken) {
+				ctx.AbortWithStatus(http.StatusUnauthorized)
+				return
+			}
+			ctx.AbortWithError(http.StatusInternalServerError, err)
 			return
 		}
-		log.Printf("id: %s", id)
 		ctx.Set("id", id)
 		ctx.Next()
 	}
@@ -38,6 +40,7 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 		},
 		AllowMethods: []string{"GET", "POST", "DELETE"},
 	}))
+
 	r.Use(AuthMiddleware(idService))
 
 	r.GET("/v1/accounts/:year/:month", monthHandler.Get)
