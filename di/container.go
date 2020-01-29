@@ -3,7 +3,6 @@ package di
 import (
 	"database/sql"
 	"io/ioutil"
-	"os"
 
 	"github.com/keitam913/accware-api/account"
 	accountapp "github.com/keitam913/accware-api/application"
@@ -50,7 +49,7 @@ func (c Container) AccountRepository() account.Respository {
 }
 
 func (c Container) DB() *sql.DB {
-	db, err := sql.Open("sqlite3", "accware.sqlite3")
+	db, err := sql.Open("sqlite3", "/var/lib/accware/db.sqlite3")
 	if err != nil {
 		panic(err)
 	}
@@ -75,7 +74,7 @@ func (c Container) PersonService() person.Service {
 }
 
 func (c Container) Config() *config.Config {
-	conf, err := config.Load(os.Args[1])
+	conf, err := config.Load("/etc/accware/config.yaml")
 	if err != nil {
 		panic(err)
 	}
