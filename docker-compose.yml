@@ -1,6 +1,6 @@
 version: '3'
 services:
-  accware_api:
+  api:
     image: golang:1.13
     container_name: accware_api
     volumes:
@@ -13,3 +13,11 @@ services:
     ports:
     - "8080:80"
     command: [go, run, .]
+  ui:
+    image: nginx:1.17
+    container_name: accware_ui
+    volumes:
+    - ./ui/build:/usr/share/nginx/html
+    - ./ui/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+    - "3000:443"
