@@ -3,7 +3,7 @@ package application
 import (
 	"time"
 
-	"github.com/keitam913/accware-api/account"
+	"github.com/keitam913/accware/api/account"
 )
 
 type Service struct {

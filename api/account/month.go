@@ -3,7 +3,7 @@ package account
 import (
 	"math"
 
-	"github.com/keitam913/accware-api/person"
+	"github.com/keitam913/accware/api/person"
 )
 
 type Month struct {

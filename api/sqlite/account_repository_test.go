@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/keitam913/accware-api/account"
-	"github.com/keitam913/accware-api/sqlite"
+	"github.com/keitam913/accware/api/account"
+	"github.com/keitam913/accware/api/sqlite"
 	_ "github.com/mattn/go-sqlite3"
 )
 

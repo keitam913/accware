@@ -4,14 +4,14 @@ import (
 	"database/sql"
 	"io/ioutil"
 
-	"github.com/keitam913/accware-api/account"
-	accountapp "github.com/keitam913/accware-api/application"
-	"github.com/keitam913/accware-api/config"
-	"github.com/keitam913/accware-api/person"
-	"github.com/keitam913/accware-api/rest"
-	"github.com/keitam913/accware-api/sqlite"
+	"github.com/keitam913/accware/api/account"
+	accountapp "github.com/keitam913/accware/api/application"
+	"github.com/keitam913/accware/api/config"
+	"github.com/keitam913/accware/api/person"
+	"github.com/keitam913/accware/api/rest"
+	"github.com/keitam913/accware/api/sqlite"
 
-	"github.com/keitam913/accware-api/oidc"
+	"github.com/keitam913/accware/api/oidc"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"

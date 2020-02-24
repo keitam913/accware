@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/keitam913/accware-api/account"
-	"github.com/keitam913/accware-api/application"
-	"github.com/keitam913/accware-api/person"
+	"github.com/keitam913/accware/api/account"
+	"github.com/keitam913/accware/api/application"
+	"github.com/keitam913/accware/api/person"
 )
 
 type MonthHandler struct {

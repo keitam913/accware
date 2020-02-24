@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-contrib/cors"
-	"github.com/keitam913/accware-api/oidc"
+	"github.com/keitam913/accware/api/oidc"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,9 +31,8 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"https://foo.com",
+			"https://localhost",
 			"https://accware.keitam.com",
-			"http://localhost:3000",
 		},
 		AllowHeaders: []string{
 			"ID-Token",

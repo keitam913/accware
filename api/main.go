@@ -1,6 +1,6 @@
 package main
 
-import "github.com/keitam913/accware-api/di"
+import "github.com/keitam913/accware/api/di"
 
 func main() {
 	dc := di.Container{}

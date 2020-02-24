@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/keitam913/accware-api/application"
+	"github.com/keitam913/accware/api/application"
 )
 
 type ItemHandler struct {

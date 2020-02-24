@@ -1,0 +1,15 @@
+version: '3'
+services:
+  accware_api:
+    image: golang:1.13
+    container_name: accware_api
+    volumes:
+    - /private/var/lib/accware:/var/lib/accware
+    - /private/etc/accware:/etc/accware
+    - ./api:/app
+    - ./api/cache/mod:/go/pkg/mod
+    - ./api/cache/go-build:/root/.cache/go-build
+    working_dir: /app
+    ports:
+    - "8080:80"
+    command: [go, run, .]
