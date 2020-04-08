@@ -69,7 +69,7 @@ function DeleteButton({ itemId, reload }) {
     if (!ans) {
       return;
     }
-    await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/items/${itemId}`, {
+    await fetch(`/v1/items/${itemId}`, {
       method: 'DELETE',
       mode: 'cors',
       headers: {
@@ -92,7 +92,7 @@ function Month() {
   const [total, setTotal] = useState({ amounts: [0, 0] });
 
   async function updateRecords() {
-    const res = await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/accounts/${year}/${month}`, {
+    const res = await fetch(`/v1/accounts/${year}/${month}`, {
       method: 'GET',
       mode: 'cors',
       headers: {

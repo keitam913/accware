@@ -8,8 +8,8 @@ function getCallPageUrl() {
 }
 
 function getAuthUrl() {
-        const url = new URL(process.env.REACT_APP_AUTH_ENDPOINT);
-        url.searchParams.append('client_id', process.env.REACT_APP_CLIENT_ID);
+        const url = new URL(window.location);
+        url.pathname = "/auth";
         url.searchParams.append('redirect_uri', getCallPageUrl().toString());
         url.searchParams.append('scope', 'openid email');
         url.searchParams.append('response_type', 'id_token');

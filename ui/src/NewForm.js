@@ -62,7 +62,7 @@ function NewForm({ reload }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const res = await fetch(`${process.env.REACT_APP_ACCWARE_API_URL}/v1/items`, {
+    const res = await fetch(`/v1/items`, {
       method: 'POST',
       mode: 'cors',
       headers: {
