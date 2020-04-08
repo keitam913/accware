@@ -31,7 +31,7 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"https://localhost",
+			"https://localhost:3000",
 			"https://accware.keitam.com",
 		},
 		AllowHeaders: []string{
