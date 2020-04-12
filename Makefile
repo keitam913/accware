@@ -1,4 +1,7 @@
-build:
+assets:
 	cd ./react && npm run build && rsync -av --del build/ ../assets
 
-.PHONY: build
+image: assets
+	docker build -t accware .
+
+.PHONY: assets image

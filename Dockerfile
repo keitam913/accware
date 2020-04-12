@@ -1,11 +1,20 @@
 FROM golang:1.13 AS builder
+
 WORKDIR /build
-COPY . .
-RUN go mod vendor
-RUN CGO_ENABLED=1 GOOS=linux go build -a -ldflags '-linkmode external -extldflags "-static"' .
+
+COPY . /build
+
+RUN go build -o accware --ldflags "-linkmode 'external' -extldflags '-static'" .
 
 FROM scratch
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder /build/accware/api /go/bin/accware/api
-COPY schema.sql /
-ENTRYPOINT ["/go/bin/accware-api"]
+
+WORKDIR /bin
+
+COPY --from=builder /etc/ssl/certs /etc/ssl/certs
+COPY --from=builder /build/accware /bin/accware
+COPY ./schema.sql /usr/share/accware/schema.sql
+COPY ./assets /usr/share/accware/assets
+
+EXPOSE 80
+
+ENTRYPOINT [ "/bin/accware" ]
