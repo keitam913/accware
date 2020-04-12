@@ -7,8 +7,7 @@ import (
 )
 
 type Config struct {
-	Persons       []Person `yaml:"persons"`
-	OAuthClientID string
+	Persons []Person `yaml:"persons"`
 }
 
 type Person struct {
