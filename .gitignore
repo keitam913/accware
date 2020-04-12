@@ -28,3 +28,5 @@ yarn-error.log*
 /assets
 /scratch
 /cache
+
+/dev.env

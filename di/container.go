@@ -74,7 +74,7 @@ func (c Container) PersonService() person.Service {
 }
 
 func (c Container) Config() *config.Config {
-	conf, err := config.Load("/etc/accware/config.yaml")
+	conf, err := config.Load()
 	if err != nil {
 		panic(err)
 	}

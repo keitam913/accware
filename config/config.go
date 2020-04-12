@@ -1,30 +1,27 @@
 package config
 
 import (
+	"encoding/json"
 	"os"
-
-	"gopkg.in/yaml.v2"
+	"strings"
 )
 
 type Config struct {
-	Persons []Person `yaml:"persons"`
+	Persons []Person `json:"persons"`
 }
 
 type Person struct {
-	ID    string  `yaml:"id"`
-	Name  string  `yaml:"name"`
-	Ratio float64 `yaml:"ratio"`
+	ID    string  `json:"id"`
+	Name  string  `json:"name"`
+	Ratio float64 `json:"ratio"`
 }
 
-func Load(filepath string) (*Config, error) {
-	f, err := os.Open(filepath)
-	if err != nil {
+func Load() (*Config, error) {
+	var ps []Person
+	if err := json.NewDecoder(strings.NewReader(os.Getenv("PERSONS"))).Decode(&ps); err != nil {
 		return nil, err
 	}
-	defer f.Close()
-	var conf Config
-	if err := yaml.NewDecoder(f).Decode(&conf); err != nil {
-		return nil, err
-	}
-	return &conf, nil
+	return &Config{
+		Persons: ps,
+	}, nil
 }
