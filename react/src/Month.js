@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, Redirect } from 'react-router-dom';
 import NewForm from './NewForm';
 import styled from 'styled-components';
 
@@ -91,6 +91,7 @@ function Month() {
   const [items, setItems] = useState([]);
   const [adjustment, setAdjustment] = useState({ amounts: [0, 0] });
   const [total, setTotal] = useState({ amounts: [0, 0] });
+  const [authenticated, setAuthenticated] = useState(true);
 
   async function updateRecords() {
     const res = await fetch(`/v1/accounts/${year}/${month}`, {
@@ -99,6 +100,11 @@ function Month() {
         'ID-Token': sessionStorage.getItem('idToken'),
       },
     });
+
+    if (res.status === 401) {
+      setAuthenticated(false);
+      return
+    }
 
     const j = await res.json()
     const pids = Object.keys(j.persons);
@@ -150,6 +156,10 @@ function Month() {
     } else {
       return n.toString();
     }
+  }
+
+  if (!authenticated) {
+    return <Redirect to="/login" />;
   }
 
   return (
