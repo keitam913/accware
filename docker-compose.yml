@@ -7,7 +7,6 @@ services:
     - ./:/app
     - ./cache/mod:/go/pkg/mod
     - ./cache/go-build:/root/.cache/go-build
-    - ./etc/accware:/etc/accware
     - ./data:/var/lib/accware
     working_dir: /app
     ports:
