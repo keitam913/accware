@@ -94,7 +94,6 @@ function Month() {
   async function updateRecords() {
     const res = await fetch(`/v1/accounts/${year}/${month}`, {
       method: 'GET',
-      mode: 'cors',
       headers: {
         'ID-Token': sessionStorage.getItem('idToken'),
       },
