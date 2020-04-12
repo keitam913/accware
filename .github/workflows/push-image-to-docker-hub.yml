@@ -1,0 +1,23 @@
+name: Push Image to Docker Hub
+on: [push]
+
+jobs:
+  push-image:
+    name: Push Image
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"
+    - name: Build Assets
+      run: "cd ./react && npm install && npm run build && mv build ../assets"
+    - name: Push Image
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERANME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: keitam913/accware
+        tags: latest
