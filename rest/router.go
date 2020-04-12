@@ -3,6 +3,7 @@ package rest
 import (
 	"errors"
 	"net/http"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/keitam913/accware/api/oidc"
@@ -12,6 +13,10 @@ import (
 
 func AuthMiddleware(idService *oidc.Service) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		if !strings.HasPrefix(ctx.Request.URL.Path, "/v") {
+			ctx.Next()
+			return
+		}
 		id, err := idService.Authenticate(ctx.Request.Header.Get("ID-TOKEN"))
 		if err != nil {
 			if errors.Is(err, oidc.InvalidToken) {
@@ -42,9 +47,26 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 
 	r.Use(AuthMiddleware(idService))
 
-	r.GET("/v1/accounts/:year/:month", monthHandler.Get)
-	r.POST("/v1/items", itemHandler.Post)
-	r.DELETE("/v1/items/:id", itemHandler.Delete)
+	v1r := gin.Default()
+	v1 := v1r.Group("/v1")
+	v1.GET("/accounts/:year/:month", monthHandler.Get)
+	v1.POST("/items", itemHandler.Post)
+	v1.DELETE("/items/:id", itemHandler.Delete)
+
+	sr := gin.Default()
+	sr.Static("/static", "assets/static")
+
+	r.GET("/*resource", func(ctx *gin.Context) {
+		if strings.HasPrefix(ctx.Param("resource"), "/v1") {
+			v1r.HandleContext(ctx)
+			return
+		}
+		if strings.HasPrefix(ctx.Param("resource"), "/static") {
+			sr.HandleContext(ctx)
+			return
+		}
+		ctx.File("assets/index.html")
+	})
 
 	return r
 }

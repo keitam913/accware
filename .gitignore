@@ -24,3 +24,7 @@ yarn-error.log*
 
 /data
 /etc
+
+/assets
+/scratch
+/cache
