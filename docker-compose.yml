@@ -8,6 +8,7 @@ services:
     - ./cache/mod:/go/pkg/mod
     - ./cache/go-build:/root/.cache/go-build
     - ./data:/var/lib/accware
+    - ./schema.sql:/usr/share/accware/schema.sql
     working_dir: /app
     ports:
     - "8080:8080"

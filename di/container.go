@@ -53,7 +53,7 @@ func (c Container) DB() *sql.DB {
 	if err != nil {
 		panic(err)
 	}
-	sc, err := ioutil.ReadFile("./schema.sql")
+	sc, err := ioutil.ReadFile("/usr/share/accware/schema.sql")
 	if err != nil {
 		panic(err)
 	}
