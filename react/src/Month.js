@@ -54,7 +54,7 @@ const DeleteColumn = styled.td`
   padding: 0.5rem 0.7rem;
 `;
 
-const DeleteButton_ = styled.button`
+const Delete = styled.button`
   background: none;
   border: none;
   color: #666;
@@ -78,13 +78,14 @@ function DeleteButton({ itemId, reload }) {
     });
     reload();
   }
-  return <DeleteButton_ onClick={deleteItem}>Delete</DeleteButton_>
+  return <Delete onClick={deleteItem}>Delete</Delete>
 }
 
 function Month() {
   const { params: { year, month } } = useRouteMatch();
   useEffect(() => {
     updateRecords();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [items, setItems] = useState([]);
@@ -106,7 +107,7 @@ function Month() {
     j.items.forEach((item) => {
       let am = [0, 0];
       for (let i = 0; i < pids.length; i++) {
-        if (pids[i] == item.personId) {
+        if (pids[i] === item.personId) {
           am[i] = item.amount;
         }
       }
