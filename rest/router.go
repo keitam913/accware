@@ -34,11 +34,11 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 	v1.DELETE("/items/:id", itemHandler.Delete)
 
 	sr := gin.New()
-	sr.Static("/static", "assets/static")
+	sr.Static("/static", "/usr/share/accware/assets/static")
 
 	tr := gin.New()
 	tr.Any("/*resource", func(ctx *gin.Context) {
-		ctx.File("assets/index.html")
+		ctx.File("/usr/share/accware/assets/index.html")
 	})
 
 	r := gin.Default()
@@ -53,7 +53,6 @@ func NewRouter(idService *oidc.Service, monthHandler *MonthHandler, itemHandler 
 			return
 		}
 		tr.ServeHTTP(ctx.Writer, ctx.Request)
-		tr.HandleContext(ctx)
 		return
 	})
 
