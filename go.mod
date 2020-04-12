@@ -15,6 +15,7 @@ require (
 	github.com/go-playground/pure/v5 v5.0.5 // indirect
 	github.com/google/uuid v1.1.1
 	github.com/keitam913/accware-api v0.0.0-20200129141831-320fd128cbf2
+	github.com/labstack/gommon v0.3.0
 	github.com/mailru/easyjson v0.7.1 // indirect
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
 	github.com/philhofer/fwd v1.0.0 // indirect
