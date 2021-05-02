@@ -11,10 +11,10 @@ FROM scratch
 WORKDIR /bin
 
 COPY --from=builder /etc/ssl/certs /etc/ssl/certs
-COPY --from=builder /build/accware /bin/accware
-COPY ./schema.sql /usr/share/accware/schema.sql
-COPY ./assets /usr/share/accware/assets
+COPY --from=builder /build/accware /usr/local/bin/accware
+COPY ./schema.sql /usr/local/share/accware/schema.sql
+COPY ./react/build /usr/local/share/accware/assets
 
 EXPOSE 80
 
-ENTRYPOINT [ "/bin/accware" ]
+ENTRYPOINT [ "/usr/local/bin/accware" ]
